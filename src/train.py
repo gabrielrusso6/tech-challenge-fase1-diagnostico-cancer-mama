@@ -22,7 +22,7 @@ class ModelTrainer:
         self.models = {
             'RandomForest': RandomForestClassifier(random_state=42),
             'SVM': SVC(random_state=42, probability=True),
-            'LogisticRegression': LogisticRegression(random_state=42, max_iter=1000),
+            'LogisticRegression': LogisticRegression(solver="liblinear", max_iter=10000, random_state=42, tol=1e-4),
             'KNN': KNeighborsClassifier(),
             'NaiveBayes': GaussianNB()
         }
@@ -83,18 +83,19 @@ class ModelTrainer:
                 'gamma': ['scale', 'auto']
             },
             'LogisticRegression': {
-                'C': [0.1, 1, 10],
+                'C': [0.01, 0.1, 1, 10],
                 'penalty': ['l1', 'l2'],
-                'solver': ['liblinear', 'saga']
+                'max_iter': [10000],
+                'tol': [1e-4]
             }
         }
         
-        # Otimizar apenas os 3 melhores modelos baseline
+        # Otimizar apenas os 2 melhores modelos baseline (excluindo LogisticRegression)
         top_models = sorted(self.model_results.items(), 
                           key=lambda x: x[1]['cv_mean'], reverse=True)[:3]
         
         for name, results in top_models:
-            if name in param_grids:
+            if name in param_grids and name != 'LogisticRegression':
                 print(f"\nOtimizando {name}...")
                 
                 model = results['model']
