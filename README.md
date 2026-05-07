@@ -189,13 +189,6 @@ As decisões médicas devem ser sempre baseadas em:
 - Histórico completo do paciente
 - Contexto clínico individual
 
-## Próximos Passos (Opcional)
-
-- [ ] Validação com datasets externos
-- [ ] Análise de interpretabilidade (SHAP, LIME)
-- [ ] Experimentos com ensembles avançados
-- [ ] Validação prospectiva em contexto clínico
-- [ ] Interface para demonstração educacional
 
 ## Status do Projeto
 
